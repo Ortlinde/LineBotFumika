@@ -13,6 +13,7 @@ import json
 from message import *
 from new import *
 from Function import *
+from order import *
 #======這裡是呼叫的檔案內容=====
 
 #======python的函數庫==========
@@ -64,7 +65,7 @@ def handle_message(event):
     if msg in keyList:
         message = TextSendMessage(text=keyword[msg])
     elif '點餐' in msg:
-        message = largeOrderPanel()
+        message = order_panel()
     line_bot_api.reply_message(event.reply_token, message)
     '''if '最新合作廠商' in msg:
         message = imagemap_message()
