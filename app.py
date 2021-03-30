@@ -7,7 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import *
-
+import json
 
 #======這裡是呼叫的檔案內容=====
 from message import *
@@ -21,12 +21,15 @@ import datetime
 import time
 #======python的函數庫==========
 
+with open('dialogue.json', mode='r', encoding='utf8') as jfile:
+    jdata = json.load(jfile)
+
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 # Channel Access Token
-line_bot_api = LineBotApi('0+lUhhXaSGCQTQRDgKWA8sJcM5zA9+Hl+cNZzDHVSc1E311ou7nagrglX6QY/0zoXLqqXsEWY9+mehJ+XPP30MAS/qCip83jDc824iKFP/FGx0m8E30HmqzRpRwf7mqb1qyi3BtZ1NfiSVIWNFU+dAdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi(jdata['TOKEN'])
 # Channel Secret
-handler = WebhookHandler('cf9c7af08d915eebc209192e3ddbc64d')
+handler = WebhookHandler(jdata['Webhook'])
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
