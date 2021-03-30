@@ -63,6 +63,8 @@ def handle_message(event):
         keyList.append(key)
     if msg in keyList:
         message = TextSendMessage(text=keyword[msg])
+    elif '點餐' in msg:
+        message = buttons_message()
     line_bot_api.reply_message(event.reply_token, message)
     '''if '最新合作廠商' in msg:
         message = imagemap_message()
