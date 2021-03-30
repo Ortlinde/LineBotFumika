@@ -21,8 +21,11 @@ import datetime
 import time
 #======python的函數庫==========
 
-with open('dialogue.json', mode='r', encoding='utf8') as jfile:
+# load setting file
+with open('config.json', mode='r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
+with open('keyword.json', mode='r', encoding='utf8') as jfile:
+    keyword = json.load(jfile)
 
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
@@ -53,7 +56,10 @@ def handle_message(event):
     msg = event.message.text
     #message = TextSendMessage(text='you say: \n' + event.message.text)
     #line_bot_api.reply_message(event.reply_token, message) # 回復
-    if '最新合作廠商' in msg:
+    if msg in keyword:
+        message = TextSendMessage(text=keyword['msg'])
+        line_bot_api.reply_message(event.reply_token, message)
+    '''if '最新合作廠商' in msg:
         message = imagemap_message()
         line_bot_api.reply_message(event.reply_token, message)
     elif '最新活動訊息' in msg:
@@ -73,7 +79,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
     else:
         message = TextSendMessage(text=msg)
-        line_bot_api.reply_message(event.reply_token, message)
+        line_bot_api.reply_message(event.reply_token, message)'''
 
 import os
 if __name__ == "__main__":
