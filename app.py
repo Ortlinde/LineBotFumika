@@ -56,8 +56,12 @@ def handle_message(event):
     msg = event.message.text
     #message = TextSendMessage(text='you say: \n' + event.message.text)
     #line_bot_api.reply_message(event.reply_token, message) # 回復
-    if msg in keyword:
-        message = TextSendMessage(text=keyword['msg'])
+
+    keyList = []
+    for key in keyword:
+        keyList.append(key)
+    if msg in keyList:
+        message = TextSendMessage(text=keyword[msg])
         line_bot_api.reply_message(event.reply_token, message)
     '''if '最新合作廠商' in msg:
         message = imagemap_message()
