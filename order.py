@@ -36,7 +36,7 @@ def order():
     )
     return message
 
-def largeOrderPanel():
+def order_panel():
     message = TemplateSendMessage(
         alt_text='一則旋轉木馬按鈕訊息',
         template=CarouselTemplate(
