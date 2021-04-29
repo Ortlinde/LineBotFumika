@@ -1,3 +1,5 @@
+### main function ###
+
 from flask import Flask, request, abort
 
 from linebot import (
@@ -7,6 +9,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import *
+
 import json
 
 #======這裡是呼叫的檔案內容=====
@@ -14,15 +17,16 @@ from message import *
 from new import *
 from Function import *
 from order import *
-#======這裡是呼叫的檔案內容=====
+from .Util.excelFunction import *
+#==============================
 
-#======python的函數庫==========
+#========python library========
 import tempfile, os
 import datetime
 import time
-#======python的函數庫==========
+#==============================
 
-# load setting file
+# load json setting file
 with open('./JSON/config.json', mode='r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
 with open('./JSON/keyword.json', mode='r', encoding='utf8') as jfile:
@@ -51,7 +55,7 @@ def callback():
     return 'OK'
 
 
-# 處理訊息
+# handle message
 @handler.add(MessageEvent, message = TextMessage)
 def handle_message(event):
     msg = event.message.text
@@ -59,11 +63,26 @@ def handle_message(event):
     #line_bot_api.reply_message(event.reply_token, message) # 回復
 
     keyList = []
+    valueList = []
+    reactDict = {}
+
     message = ''
-    for key in keyword:
-        keyList.append(key)
+    #for key in keyword:
+    #    keyList.append(key)
+    kvData = getDataFromGoogleSheet()
+    for outer in kvData:
+        for inner in kvData.get(outer):
+            if inner == 'NAME':
+                keyList.append(kvData.get(outer).get(inner))
+            if inner == 'VALUE':
+                valueList.append(kvData.get(outer).get(inner))
+    
+    for i in range(len(keyList)):
+        reactDict[keyList[i]] = valueList[i]
+
     if msg in keyList:
-        message = TextSendMessage(text=keyword[msg])
+    #    message = TextSendMessage(text=keyword[msg])
+        message = TextSendMessage(text=reactDict.get(msg))
     elif '點餐' in msg:
         message = order_panel()
     line_bot_api.reply_message(event.reply_token, message)
