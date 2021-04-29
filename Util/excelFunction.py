@@ -37,4 +37,4 @@ for outer in kvData:
 for i in range(len(keyList)):
     reactDict[keyList[i]] = valueList[i]
 
-print(reactDict)
+print(reactDict.get('A'))
