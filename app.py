@@ -23,9 +23,9 @@ import time
 #======python的函數庫==========
 
 # load setting file
-with open('GitHub\\LineBotFumika\\JSON\\config.json', mode='r', encoding='utf8') as jfile:
+with open('./JSON/config.json', mode='r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
-with open('GitHub\\LineBotFumika\\JSON\\keyword.json', mode='r', encoding='utf8') as jfile:
+with open('./JSON/keyword.json', mode='r', encoding='utf8') as jfile:
     keyword = json.load(jfile)
 
 app = Flask(__name__)
