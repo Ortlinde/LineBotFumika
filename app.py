@@ -17,7 +17,7 @@ from message import *
 from new import *
 from Function import *
 from order import *
-from .Util.excelFunction import *
+from Util.excelFunction import *
 #==============================
 
 #========python library========
