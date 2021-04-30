@@ -95,7 +95,7 @@ def handle_message(event):
        message = TextSendMessage(text=reactDict.get(msg))
     elif 'setKey;' in msg:
         splitStr = msg.split(';')
-        if len(splitStr) == 4:
+        if len(splitStr) == 3:
             sendDataToGoogleSheet(splitStr[1], splitStr[2])
 
     line_bot_api.reply_message(event.reply_token, message)
