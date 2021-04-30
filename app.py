@@ -29,8 +29,6 @@ import time
 # load json setting file
 with open('./JSON/config.json', mode='r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
-with open('./JSON/keyword.json', mode='r', encoding='utf8') as jfile:
-    keyword = json.load(jfile)
 
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
@@ -48,8 +46,6 @@ message = ''
 
 # reload google sheet
 def loadGAS():
-    # for key in keyword:
-    #    keyList.append(key)
     kvData = getDataFromGoogleSheet()
     for outer in kvData:
         for inner in kvData.get(outer):
@@ -82,16 +78,13 @@ def callback():
 # handle message
 @handler.add(MessageEvent, message = TextMessage)
 def handle_message(event):
-    msg = event.message.text
-    #message = TextSendMessage(text='you say: \n' + event.message.text)
-    #line_bot_api.reply_message(event.reply_token, message) # 回復   
+    msg = event.message.text  
 
-    if 'RELOAD' in msg:
+    if 'RELOAD' == msg:
         loadGAS()
     elif '點餐' in msg:
         message = order_panel()
     elif msg in keyList:
-        # message = TextSendMessage(text=keyword[msg])
        message = TextSendMessage(text=reactDict.get(msg))
     elif 'setKey;' in msg:
         splitStr = msg.split(';')
