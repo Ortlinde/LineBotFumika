@@ -46,6 +46,7 @@ reactDict = {}
 
 message = ''
 
+# reload google sheet
 def loadGAS():
     # for key in keyword:
     #    keyList.append(key)
@@ -59,6 +60,8 @@ def loadGAS():
     
     for i in range(len(keyList)):
         reactDict[keyList[i]] = valueList[i]
+
+loadGAS()
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
