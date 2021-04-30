@@ -39,6 +39,27 @@ line_bot_api = LineBotApi(jdata['TOKEN'])
 # Channel Secret
 handler = WebhookHandler(jdata['Webhook'])
 
+
+keyList = []
+valueList = []
+reactDict = {}
+
+message = ''
+
+def loadGAS():
+    # for key in keyword:
+    #    keyList.append(key)
+    kvData = getDataFromGoogleSheet()
+    for outer in kvData:
+        for inner in kvData.get(outer):
+            if inner == 'NAME':
+                keyList.append(kvData.get(outer).get(inner))
+            if inner == 'VALUE':
+                valueList.append(kvData.get(outer).get(inner))
+    
+    for i in range(len(keyList)):
+        reactDict[keyList[i]] = valueList[i]
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -60,27 +81,11 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     #message = TextSendMessage(text='you say: \n' + event.message.text)
-    #line_bot_api.reply_message(event.reply_token, message) # 回復
+    #line_bot_api.reply_message(event.reply_token, message) # 回復   
 
-    keyList = []
-    valueList = []
-    reactDict = {}
-
-    message = ''
-    # for key in keyword:
-    #    keyList.append(key)
-    kvData = getDataFromGoogleSheet()
-    for outer in kvData:
-        for inner in kvData.get(outer):
-            if inner == 'NAME':
-                keyList.append(kvData.get(outer).get(inner))
-            if inner == 'VALUE':
-                valueList.append(kvData.get(outer).get(inner))
-    
-    for i in range(len(keyList)):
-        reactDict[keyList[i]] = valueList[i]
-
-    if msg in keyList:
+    if 'load' in msg:
+        loadGAS()
+    elif msg in keyList:
         # message = TextSendMessage(text=keyword[msg])
        message = TextSendMessage(text=reactDict.get(msg))
     elif '點餐' in msg:
