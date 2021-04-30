@@ -3,7 +3,7 @@
     "Webhook" : "cf9c7af08d915eebc209192e3ddbc64d",
     "Gas" :{
         "Get" : [{
-            "baseExcel" : "https://script.google.com/macros/s/AKfycbwPKR_bSH0NCzqIe3T1qWVefX_sWhkM2Is_Ar710L8dqmajHQTRsZw3YSYR79Upx4-SnA/exec"
+            "baseExcel" : "https://script.google.com/macros/s/AKfycby1sY5UYHzNX7V207nYJF9VVRfO0vs5Wt4-E9H0u85cJ7P5KJQL1cB5goXCQUxMiuZV/exec"
         }]
     }
 }
