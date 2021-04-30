@@ -67,22 +67,22 @@ def handle_message(event):
     reactDict = {}
 
     message = ''
-    for key in keyword:
-       keyList.append(key)
-    # kvData = getDataFromGoogleSheet()
-    # for outer in kvData:
-    #     for inner in kvData.get(outer):
-    #         if inner == 'NAME':
-    #             keyList.append(kvData.get(outer).get(inner))
-    #         if inner == 'VALUE':
-    #             valueList.append(kvData.get(outer).get(inner))
+    # for key in keyword:
+    #    keyList.append(key)
+    kvData = getDataFromGoogleSheet()
+    for outer in kvData:
+        for inner in kvData.get(outer):
+            if inner == 'NAME':
+                keyList.append(kvData.get(outer).get(inner))
+            if inner == 'VALUE':
+                valueList.append(kvData.get(outer).get(inner))
     
-    # for i in range(len(keyList)):
-    #     reactDict[keyList[i]] = valueList[i]
+    for i in range(len(keyList)):
+        reactDict[keyList[i]] = valueList[i]
 
     if msg in keyList:
-        message = TextSendMessage(text=keyword[msg])
-    #    message = TextSendMessage(text=reactDict.get(msg))
+        # message = TextSendMessage(text=keyword[msg])
+       message = TextSendMessage(text=reactDict.get(msg))
     elif '點餐' in msg:
         message = order_panel()
     line_bot_api.reply_message(event.reply_token, message)
