@@ -86,13 +86,18 @@ def handle_message(event):
     #message = TextSendMessage(text='you say: \n' + event.message.text)
     #line_bot_api.reply_message(event.reply_token, message) # 回復   
 
-    if 'load' in msg:
+    if 'RELOAD' in msg:
         loadGAS()
+    elif '點餐' in msg:
+        message = order_panel()
     elif msg in keyList:
         # message = TextSendMessage(text=keyword[msg])
        message = TextSendMessage(text=reactDict.get(msg))
-    elif '點餐' in msg:
-        message = order_panel()
+    elif 'setKey;' in msg:
+        splitStr = msg.split(';')
+        if len(splitStr) < 4:
+            sendDataToGoogleSheet(splitStr[1], splitStr[2])
+
     line_bot_api.reply_message(event.reply_token, message)
     '''if '最新合作廠商' in msg:
         message = imagemap_message()
