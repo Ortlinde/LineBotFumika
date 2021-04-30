@@ -5,6 +5,7 @@ import time
 with open('./JSON/config.json', mode='r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
 
+# send a column of data to google sheet
 def sendDataToGoogleSheet(name, value):
     url = jdata['Gas']['Get'][0]['baseExcel']
     payload = {
@@ -12,7 +13,6 @@ def sendDataToGoogleSheet(name, value):
         'NAME': name,
         'VALUE': value }
     resp = requests.post(url, params=payload)
-    print(resp.text)
 
 # return a dict of sheet
 def getDataFromGoogleSheet():
