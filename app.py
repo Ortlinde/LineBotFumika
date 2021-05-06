@@ -103,10 +103,11 @@ def handle_message(event):
     if ordering == True:
         if time.time()-orderCalled > 600 :
             ordering = False
+            return
         elif msg in restaurantName :
             #getOrder(Restaurant(msg))
-            line_bot_api.reply_message(event.reply_token, msg)
-        return
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=msg))
+            return
 
     if 'RELOAD' == msg:
         loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
