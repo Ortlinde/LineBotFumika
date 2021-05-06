@@ -65,9 +65,18 @@ def loadGAS(url):
         reactDict[keyList[i]] = valueList[i]
 
 def loadSheet(url, *list):
-    return
+    Data = getDataFromGoogleSheet(url)
+    
+    for outer in Data:
+        for inner in Data.get(outer):
+            i = 0
+            if i > 1:
+                for l in list:
+                    l.append(Data.get(outer).get(inner))
+            i = i + 1 
 
 loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
+loadSheet(jdata['Gas']['Get'][1]['baseExcel'], restaurantName)
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -94,12 +103,13 @@ def handle_message(event):
     if ordering == True:
         if time.time()-orderCalled > 600 :
             ordering = False
-        else :
+        elif msg in restaurantName :
             getOrder(Restaurant(msg))
         return
 
     if 'RELOAD' == msg:
         loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
+        loadSheet(jdata['Gas']['Get'][1]['baseExcel'], restaurantName)
     elif '點餐' in msg:
         message = order()
         ordering = True
