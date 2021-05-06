@@ -97,7 +97,7 @@ def callback():
 # handle message
 @handler.add(MessageEvent, message = TextMessage)
 def handle_message(event):
-    global message, ordering, orderCalled
+    global ordering, orderCalled
     msg = event.message.text 
     
     if ordering == True:
