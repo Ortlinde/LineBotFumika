@@ -33,8 +33,8 @@ def order():
     )
     return message
 
-def getOrder(message):
-    return
+def getOrder(msg):
+    line_bot_api.reply_message(event.reply_token, type(msg))
 
 def order_panel():
     message = TemplateSendMessage(
