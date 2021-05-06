@@ -4,3 +4,6 @@ class Restaurant:
         
         def getName():
             return self.name
+
+        def toString():
+            return str(type(self))
