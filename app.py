@@ -42,8 +42,11 @@ handler = WebhookHandler(jdata['Webhook'])
 keyList = []
 valueList = []
 reactDict = {}
+
 ordering = False
 orderCalled = time.time()
+
+restaurantName = []
 
 message = ''
 
@@ -59,6 +62,9 @@ def loadGAS(url):
     
     for i in range(len(keyList)):
         reactDict[keyList[i]] = valueList[i]
+
+def loadSheet(url, *list):
+    return
 
 loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
 
@@ -81,8 +87,9 @@ def callback():
 # handle message
 @handler.add(MessageEvent, message = TextMessage)
 def handle_message(event):
-    msg = event.message.text 
     global ordering
+    msg = event.message.text 
+    
     if ordering == True:
         if time.time()-orderCalled > 600 :
             ordering = False
@@ -96,7 +103,7 @@ def handle_message(event):
         message = order()
         ordering = True
         orderCalled = time.time()
-    elif msg in keyList:
+    elif msg in reactDict:
        message = TextSendMessage(text=reactDict.get(msg))
     elif 'setKey;' in msg:
         splitStr = msg.split(';')
