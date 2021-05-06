@@ -46,8 +46,6 @@ orderCalled = time.time()
 
 restaurantName = []
 
-message = ''
-
 # reload google sheet
 def loadGAS(url):
     keyList = []
@@ -98,6 +96,7 @@ def callback():
 @handler.add(MessageEvent, message = TextMessage)
 def handle_message(event):
     global ordering, orderCalled
+    message = ''
     msg = event.message.text 
     
     if ordering == True:
