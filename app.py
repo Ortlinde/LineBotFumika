@@ -18,6 +18,7 @@ from new import *
 from Function import *
 from order import *
 from Util.excelFunction import *
+import Restaurant.Restaurant
 #==============================
 
 #========python library========
@@ -37,16 +38,18 @@ line_bot_api = LineBotApi(jdata['TOKEN'])
 # Channel Secret
 handler = WebhookHandler(jdata['Webhook'])
 
-
+# 全域變數
 keyList = []
 valueList = []
 reactDict = {}
+ordering = False
+orderCalled = time.time()
 
 message = ''
 
 # reload google sheet
-def loadGAS():
-    kvData = getDataFromGoogleSheet()
+def loadGAS(url):
+    kvData = getDataFromGoogleSheet(url)
     for outer in kvData:
         for inner in kvData.get(outer):
             if inner == 'NAME':
@@ -57,7 +60,7 @@ def loadGAS():
     for i in range(len(keyList)):
         reactDict[keyList[i]] = valueList[i]
 
-loadGAS()
+loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -78,41 +81,33 @@ def callback():
 # handle message
 @handler.add(MessageEvent, message = TextMessage)
 def handle_message(event):
-    msg = event.message.text  
+    msg = event.message.text 
+
+    if ordering == True:
+        if time.time()-orderCalled > 600 :
+            ordering = False
+        else :
+            getOrder(Restaurant(msg))
+        return
 
     if 'RELOAD' == msg:
         loadGAS()
     elif '點餐' in msg:
-        message = order(time.time())
+        message = order()
+        ordering = True
+        orderCalled = time.time()
     elif msg in keyList:
        message = TextSendMessage(text=reactDict.get(msg))
     elif 'setKey;' in msg:
         splitStr = msg.split(';')
         if len(splitStr) == 3:
-            sendDataToGoogleSheet(splitStr[1], splitStr[2])
-
+            payload = {
+                'DATE': time.strftime("%Y-%m-%d", time.localtime()),
+                'NAME': splitStr[1],
+                'VALUE': splitStr[2] }
+            sendDataToGoogleSheet(jdata['Gas']['Get'][0]['baseExcel'], payload)
+    # 回復訊息
     line_bot_api.reply_message(event.reply_token, message)
-    '''if '最新合作廠商' in msg:
-        message = imagemap_message()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '最新活動訊息' in msg:
-        message = buttons_message()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '註冊會員' in msg:
-        message = Confirm_Template()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '旋轉木馬' in msg:
-        message = Carousel_Template()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '圖片畫廊' in msg:
-        message = test()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '功能列表' in msg:
-        message = function_list()
-        line_bot_api.reply_message(event.reply_token, message)
-    else:
-        message = TextSendMessage(text=msg)
-        line_bot_api.reply_message(event.reply_token, message)'''
 
 import os
 if __name__ == "__main__":
