@@ -5,5 +5,11 @@ class Restaurant:
     def getName(self):
         return self.name
 
-    def toString(self):
-        return str(type(self))
+class EightWay(Restaurant):
+    pass
+
+class YiTing(Restaurant):
+    pass
+
+class GuJing(Restaurant):
+    pass
