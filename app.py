@@ -105,7 +105,7 @@ def handle_message(event):
             ordering = False
         elif msg in restaurantName :
             #getOrder(Restaurant(msg))
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=msg))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='1'))
 
     if 'RELOAD' == msg:
         loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
