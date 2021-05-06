@@ -39,8 +39,6 @@ line_bot_api = LineBotApi(jdata['TOKEN'])
 handler = WebhookHandler(jdata['Webhook'])
 
 # 全域變數
-keyList = []
-valueList = []
 reactDict = {}
 
 ordering = False
@@ -52,7 +50,10 @@ message = ''
 
 # reload google sheet
 def loadGAS(url):
+    keyList = []
+    valueList = []
     kvData = getDataFromGoogleSheet(url)
+    
     for outer in kvData:
         for inner in kvData.get(outer):
             if inner == 'NAME':
