@@ -40,7 +40,8 @@ handler = WebhookHandler(jdata['Webhook'])
 # 全域變數
 reactDict = {}
 
-ordering, wait4input = False
+ordering = False
+wait4input = False
 orderCalled = time.time()
 
 restaurantName = []
