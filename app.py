@@ -103,7 +103,7 @@ def handle_message(event):
             ordering = False
         elif msg in restaurantName :
             r = Restaurant(msg)
-            getOrder(line_bot_api,r)
+            getOrder(line_bot_api, event.reply_token, r)
             #line_bot_api.reply_message(event.reply_token, TextSendMessage(text= r.toString()))
             return
 
