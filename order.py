@@ -1,7 +1,7 @@
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
-from Restaurant.Restaurant import Restaurant
+from Restaurant.Restaurant import *
 import time
 
 # 點餐
@@ -24,10 +24,6 @@ def order():
                 MessageTemplateAction(
                     label="還是想要宜廷小吃",
                     text="宜廷小吃"
-                ),
-                MessageTemplateAction(
-                    label='下一頁',
-                    text='下一頁'
                 )
             ]
         )
@@ -35,4 +31,10 @@ def order():
     return message
 
 def getOrder(api, token, msg):
-    api.reply_message(token, TextSendMessage(text=isinstance(msg, Restaurant)))
+    if msg.name == "古今中外":
+        a
+    elif msg.name == "八方雲集":
+        b
+    else:
+        c
+    api.reply_message(token, TextSendMessage(text='請按照\"品項;單價;數量\"的順序輸入,如要結帳請輸入\"c\"'))
