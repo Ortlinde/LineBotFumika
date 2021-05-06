@@ -1,6 +1,7 @@
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
+from Restaurant.Restaurant import Restaurant
 import time
 
 # 點餐
