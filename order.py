@@ -8,31 +8,27 @@ def order(calledTime):
     called = calledTime
 
     message = TemplateSendMessage(
-        alt_text='好消息來囉～',
+        alt_text='今天想吃什麼呢？',
         template=ButtonsTemplate(
-            thumbnail_image_url="https://pic2.zhimg.com/v2-de4b8114e8408d5265503c8b41f59f85_b.jpg",
-            title="是否要進行抽獎活動？",
-            text="輸入生日後即獲得抽獎機會",
+            thumbnail_image_url="https://www.kamigo.tw/assets/kamigo-c3b10dff4cdb60fa447496b22edad6c32fffde96de20262efba690892e4461e8.png",
+            title="今天想吃什麼呢？",
+            text="如未點單請10分鐘後重新呼叫",
             actions=[
-                DatetimePickerTemplateAction(
-                    label="請選擇生日",
-                    data="input_birthday",
-                    mode='date',
-                    initial='1990-01-01',
-                    max='2019-03-10',
-                    min='1930-01-01'
+                MessageTemplateAction(
+                    label="今天想吃古今中外",
+                    text="古今中外"
                 ),
                 MessageTemplateAction(
-                    label="看抽獎品項",
-                    text="有哪些抽獎品項呢？"
+                    label="或是來點八方雲集",
+                    text="八方雲集"
                 ),
-                URITemplateAction(
-                    label="免費註冊享回饋",
-                    uri="https://tw.shop.com/nbts/create-myaccount.xhtml?returnurl=https%3A%2F%2Ftw.shop.com%2F"
+                MessageTemplateAction(
+                    label="還是想要宜廷小吃",
+                    text="宜廷小吃"
                 ),
-                PostbackTemplateAction(
+                MessageTemplateAction(
                     label='下一頁',
-                    data='next_page_1'
+                    text='下一頁'
                 )
             ]
         )
