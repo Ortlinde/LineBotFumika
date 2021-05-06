@@ -1,9 +1,12 @@
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
+import time
 
 # 點餐
 def order():
+    calledTime = time.time()
+
     message = TemplateSendMessage(
         alt_text='好消息來囉～',
         template=ButtonsTemplate(
@@ -34,6 +37,8 @@ def order():
             ]
         )
     )
+    if time.time()-calledTime > 600:
+        message = '超過回應時間'
     return message
 
 def order_panel():
