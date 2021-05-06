@@ -18,7 +18,7 @@ from new import *
 from Function import *
 from order import *
 from Util.excelFunction import *
-from Restaurant import Restaurant
+from Restaurant.Restaurant import Restaurant
 #==============================
 
 #========python library========
