@@ -91,7 +91,7 @@ def handle_message(event):
         return
 
     if 'RELOAD' == msg:
-        loadGAS()
+        loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
     elif '點餐' in msg:
         message = order()
         ordering = True
