@@ -45,6 +45,7 @@ ordering = False
 orderCalled = time.time()
 
 restaurantName = []
+restaurantAddr = []
 
 # reload google sheet
 def loadGAS(url):
@@ -62,19 +63,17 @@ def loadGAS(url):
     for i in range(len(keyList)):
         reactDict[keyList[i]] = valueList[i]
 
-def loadSheet(url, *list):
+def loadShop(url):
     Data = getDataFromGoogleSheet(url)
-    
     for outer in Data:
         for inner in Data.get(outer):
-            i = 0
-            if i > 1:
-                for l in list:
-                    l.append(Data.get(outer).get(inner))
-            i = i + 1 
+            if inner == 'NAME':
+                restaurantName.append(Data.get(outer).get(inner))
+            if inner == 'ADDRESS':
+                restaurantAddr.append(Data.get(outer).get(inner))
 
 loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
-loadSheet(jdata['Gas']['Get'][1]['baseExcel'], restaurantName)
+loadShop(jdata['Gas']['Get'][1]['baseExcel'])
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -104,11 +103,11 @@ def handle_message(event):
             ordering = False
         elif msg in restaurantName :
             #getOrder(Restaurant(msg))
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=msg))
 
     if 'RELOAD' == msg:
         loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
-        loadSheet(jdata['Gas']['Get'][1]['baseExcel'], restaurantName)
+        loadSheet(jdata['Gas']['Get'][1]['baseExcel'])
     elif '點餐' in msg:
         message = order()
         ordering = True
@@ -126,7 +125,6 @@ def handle_message(event):
     # 回復訊息
     if message != '' :
         line_bot_api.reply_message(event.reply_token, message)
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
 
 import os
 if __name__ == "__main__":
