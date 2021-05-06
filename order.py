@@ -38,7 +38,7 @@ def order(calledTime):
         )
     )
     if time.time()-called > 600:
-        message = '超過回應時間'
+        message = TextSendMessage(text='超過回應時間')
     return message
 
 def order_panel():
