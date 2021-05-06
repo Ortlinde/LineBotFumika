@@ -104,7 +104,8 @@ def handle_message(event):
         if time.time()-orderCalled > 600 :
             ordering = False
         elif msg in restaurantName :
-            getOrder(Restaurant(msg))
+            #getOrder(Restaurant(msg))
+            line_bot_api.reply_message(event.reply_token, msg)
         return
 
     if 'RELOAD' == msg:
