@@ -18,7 +18,6 @@ from new import *
 from Function import *
 from order import *
 from Util.excelFunction import *
-from Restaurant.Restaurant import Restaurant
 #==============================
 
 #========python library========
@@ -41,11 +40,14 @@ handler = WebhookHandler(jdata['Webhook'])
 # 全域變數
 reactDict = {}
 
-ordering = False
+ordering, wait4input = False
 orderCalled = time.time()
 
 restaurantName = []
 restaurantAddr = []
+
+orderRequest = []
+sum = 0
 
 # reload google sheet
 def loadGAS(url):
@@ -94,17 +96,32 @@ def callback():
 # handle message
 @handler.add(MessageEvent, message = TextMessage)
 def handle_message(event):
-    global ordering, orderCalled
+    global sum, orderRequest, ordering, orderCalled, wait4input
     message = ''
     msg = event.message.text 
+
+    if wait4input == True:
+        if 'c' == msg:
+            ordering = False
+            wait4input = False
+            quitMessage = '結束點單,總價為:  ' + sum + ' 元'
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=quitMessage))
+            sum = 0
+        else:
+            splStr = msg.split(';')
+            if len(splStr) == 3:
+                items = splStr[0] + splStr[2]
+                orderRequest.append(item)
+                sum = sum + int(splStr[1])*int(splStr[2])
+        return
     
     if ordering == True:
         if time.time()-orderCalled > 600 :
             ordering = False
+            wait4input = False
         elif msg in restaurantName :
-            r = Restaurant(msg)
-            getOrder(line_bot_api, event.reply_token, r)
-            #line_bot_api.reply_message(event.reply_token, TextSendMessage(text= r.toString()))
+            getOrder(line_bot_api, event.reply_token, msg)
+            wait4input = True
             return
 
     if 'RELOAD' == msg:
