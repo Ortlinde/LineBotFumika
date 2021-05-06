@@ -34,7 +34,7 @@ def order():
     return message
 
 def getOrder(msg):
-    line_bot_api.reply_message(event.reply_token, type(msg))
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=type(msg)))
 
 def order_panel():
     message = TemplateSendMessage(
