@@ -34,5 +34,5 @@ def order():
     )
     return message
 
-def getOrder(api, msg):
-    api.reply_message(event.reply_token, TextSendMessage(text=isinstance(msg, Restaurant)))
+def getOrder(api, token, msg):
+    api.reply_message(token, TextSendMessage(text=isinstance(msg, Restaurant)))
