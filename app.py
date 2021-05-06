@@ -82,7 +82,7 @@ def callback():
 @handler.add(MessageEvent, message = TextMessage)
 def handle_message(event):
     msg = event.message.text 
-
+    global ordering
     if ordering == True:
         if time.time()-orderCalled > 600 :
             ordering = False
