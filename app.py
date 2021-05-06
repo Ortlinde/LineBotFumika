@@ -83,7 +83,7 @@ def handle_message(event):
     if 'RELOAD' == msg:
         loadGAS()
     elif '點餐' in msg:
-        message = order()
+        message = order(time.time())
     elif msg in keyList:
        message = TextSendMessage(text=reactDict.get(msg))
     elif 'setKey;' in msg:
