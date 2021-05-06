@@ -31,13 +31,13 @@ def order():
     return message
 
 def getOrder(api, token, msg):
-    if msg.name == "古今中外":
+    if msg == "古今中外":
         message = ImageSendMessage(
             original_content_url='https://example.com/original.jpg',
             preview_image_url='https://example.com/preview.jpg'
             )
         api.reply_message(token, message)
-    elif msg.name == "八方雲集":
+    elif msg == "八方雲集":
         message = ImageSendMessage(
             original_content_url='https://pic.pimg.tw/boda02/1557319378-1227573607_wn.jpg',
             preview_image_url='https://pic.pimg.tw/boda02/1557319378-1227573607_wn.jpg'
