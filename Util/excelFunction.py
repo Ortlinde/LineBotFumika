@@ -1,5 +1,5 @@
 import requests
-import time
+import json
 
 # send a column of data to google sheet
 def sendDataToGoogleSheet(url, payload):
