@@ -124,7 +124,8 @@ def handle_message(event):
                 'VALUE': splitStr[2] }
             sendDataToGoogleSheet(jdata['Gas']['Get'][0]['baseExcel'], payload)
     # 回復訊息
-    line_bot_api.reply_message(event.reply_token, message)
+    if message != '' :
+        line_bot_api.reply_message(event.reply_token, message)
 
 import os
 if __name__ == "__main__":
