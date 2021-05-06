@@ -4,15 +4,13 @@ from linebot.models import *
 import time
 
 # 點餐
-def order(calledTime):
-    called = calledTime
-
+def order():
     message = TemplateSendMessage(
         alt_text='今天想吃什麼呢？',
         template=ButtonsTemplate(
             thumbnail_image_url="https://www.kamigo.tw/assets/kamigo-c3b10dff4cdb60fa447496b22edad6c32fffde96de20262efba690892e4461e8.png",
             title="今天想吃什麼呢？",
-            text="如未點單請10分鐘後重新呼叫",
+            text="10分鐘內未點單請重新呼叫",
             actions=[
                 MessageTemplateAction(
                     label="今天想吃古今中外",
@@ -33,9 +31,10 @@ def order(calledTime):
             ]
         )
     )
-    if time.time()-called > 600:
-        message = TextSendMessage(text='超過回應時間')
     return message
+
+def getOrder(message):
+    return
 
 def order_panel():
     message = TemplateSendMessage(
