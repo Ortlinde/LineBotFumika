@@ -32,9 +32,21 @@ def order():
 
 def getOrder(api, token, msg):
     if msg.name == "古今中外":
-        a
+        message = ImageSendMessage(
+            original_content_url='https://example.com/original.jpg',
+            preview_image_url='https://example.com/preview.jpg'
+            )
+        api.reply_message(token, message)
     elif msg.name == "八方雲集":
-        b
+        message = ImageSendMessage(
+            original_content_url='https://pic.pimg.tw/boda02/1557319378-1227573607_wn.jpg',
+            preview_image_url='https://pic.pimg.tw/boda02/1557319378-1227573607_wn.jpg'
+            )
+        api.reply_message(token, message)
     else:
-        c
+        message = ImageSendMessage(
+            original_content_url='https://example.com/original.jpg',
+            preview_image_url='https://example.com/preview.jpg'
+            )
+        api.reply_message(token, message)
     api.reply_message(token, TextSendMessage(text='請按照\"品項;單價;數量\"的順序輸入,如要結帳請輸入\"c\"'))
