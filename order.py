@@ -4,8 +4,8 @@ from linebot.models import *
 import time
 
 # 點餐
-def order():
-    calledTime = time.time()
+def order(calledTime):
+    called = calledTime
 
     message = TemplateSendMessage(
         alt_text='好消息來囉～',
@@ -37,7 +37,7 @@ def order():
             ]
         )
     )
-    if time.time()-calledTime > 600:
+    if time.time()-called > 600:
         message = '超過回應時間'
     return message
 
