@@ -102,7 +102,9 @@ def handle_message(event):
         if time.time()-orderCalled > 600 :
             ordering = False
         elif msg in restaurantName :
-            getOrder(Restaurant(msg))
+            r = Restaurant(msg)
+            r.toString()
+            #getOrder(r)
             #line_bot_api.reply_message(event.reply_token, TextSendMessage(text=msg))
             return
 
