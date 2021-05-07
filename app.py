@@ -109,8 +109,8 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=quitMessage))
             '''payload = {
                 'USER': event.source.user_id,
-                'NAME': splStr[1],
-                'VALUE': splStr[2] }
+                'PRICE': sum,
+                'ITEMS': orderRequest }
             sendDataToGoogleSheet(jdata['Gas']['Get'][2]['baseExcel'], payload)'''
             sum = 0
             orderRequest.clear()
