@@ -107,7 +107,13 @@ def handle_message(event):
             wait4input = False
             quitMessage = '結束點單,總價為:  ' + str(sum) + ' 元'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=quitMessage))
+            '''payload = {
+                'USER': event.source.user_id,
+                'NAME': splStr[1],
+                'VALUE': splStr[2] }
+            sendDataToGoogleSheet(jdata['Gas']['Get'][2]['baseExcel'], payload)'''
             sum = 0
+            orderRequest.clear()
         else:
             splStr = msg.split(';')
             if len(splStr) == 3:
