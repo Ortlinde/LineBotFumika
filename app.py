@@ -105,7 +105,7 @@ def handle_message(event):
         if 'c' == msg:
             ordering = False
             wait4input = False
-            quitMessage = '結束點單,總價為:  ' + sum + ' 元'
+            quitMessage = '結束點單,總價為:  ' + str(sum) + ' 元'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=quitMessage))
             sum = 0
         else:
@@ -114,6 +114,7 @@ def handle_message(event):
                 items = splStr[0] + splStr[2]
                 orderRequest.append(items)
                 sum = sum + int(splStr[1])*int(splStr[2])
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text='收到'))
         return
     
     if ordering == True:
