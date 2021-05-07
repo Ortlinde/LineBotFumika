@@ -1,7 +1,6 @@
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
-from Restaurant.Restaurant import *
 import time
 
 # 點餐
@@ -32,9 +31,39 @@ def order():
 
 def getOrder(api, token, msg):
     if msg == "古今中外":
+        '''message = TemplateSendMessage(
+            alt_text='今天想吃什麼呢？',
+            template=ButtonsTemplate(
+                thumbnail_image_url="https://www.kamigo.tw/assets/kamigo-c3b10dff4cdb60fa447496b22edad6c32fffde96de20262efba690892e4461e8.png",
+                title="今天想吃什麼呢？",
+                text="任一單品+150元可升級套餐",
+                actions=[
+                    MessageTemplateAction(
+                        label="精緻特選炒飯",
+                        text="精緻特選炒飯"
+                    ),
+                    MessageTemplateAction(
+                        label="主廚推薦",
+                        text="主廚推薦"
+                    ),
+                    MessageTemplateAction(
+                        label="湯品、沙拉、甜點",
+                        text="湯品、沙拉、甜點"
+                    ),
+                    MessageTemplateAction(
+                        label="飲料",
+                        text="飲料"
+                    ),
+                    MessageTemplateAction(
+                        label="下一頁",
+                        text="下一頁"
+                    )
+                ]
+            )
+        )'''
         message = ImageSendMessage(
-            original_content_url='https://example.com/original.jpg',
-            preview_image_url='https://example.com/preview.jpg'
+            original_content_url='https://cdn.walkerland.com.tw/images/upload/poi/p59576/m67980/41a28f0dbbebff13c66325c817ad0de25bee8690.jpg',
+            preview_image_url='https://cdn.walkerland.com.tw/images/upload/poi/p59576/m67980/41a28f0dbbebff13c66325c817ad0de25bee8690.jpg'
             )
         api.reply_message(token, message)
     elif msg == "八方雲集":
