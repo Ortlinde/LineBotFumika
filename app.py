@@ -128,6 +128,7 @@ def handle_message(event):
         elif msg in restaurantName :
             orderRequest.append(Restaurant(event.source.user_id,jdata,restaurantName.index(msg)))
             pushRequest.append(orderRequest[-1])
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=pushRequest))
             getOrder(line_bot_api, event.reply_token, msg)
             wait4input = True
             return
