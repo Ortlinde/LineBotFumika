@@ -13,11 +13,11 @@ from linebot.models import *
 import json
 
 #======這裡是呼叫的檔案內容=====
-from message import *
-from new import *
-from Function import *
-from order import *
-from Util.excelFunction import *
+from .message import *
+from .new import *
+from .Function import *
+from .order import *
+from .Util.excelFunction import *
 #==============================
 
 #========python library========
@@ -107,20 +107,17 @@ def handle_message(event):
             wait4input = False
             quitMessage = '結束點單,總價為:  ' + str(sum) + ' 元'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=quitMessage))
-            '''payload = {
-                'USER': event.source.user_id,
-                'PRICE': sum,
-                'ITEMS': orderRequest }
-            sendDataToGoogleSheet(jdata['Gas']['Get'][2]['baseExcel'], payload)'''
             sum = 0
             orderRequest.clear()
         else:
-            splStr = msg.split(';')
+            splStr = msg.split(' ')
             if len(splStr) == 3:
                 items = splStr[0] + splStr[2]
                 orderRequest.append(items)
                 sum = sum + int(splStr[1])*int(splStr[2])
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text='收到'))
+            else:
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text='格式錯誤,請再試一次'))
         return
     
     if ordering == True:
@@ -134,7 +131,7 @@ def handle_message(event):
 
     if 'RELOAD' == msg:
         loadGAS(jdata['Gas']['Get'][0]['baseExcel'])
-        loadSheet(jdata['Gas']['Get'][1]['baseExcel'])
+        loadShop(jdata['Gas']['Get'][1]['baseExcel'])
     elif '點餐' in msg:
         message = order()
         ordering = True
