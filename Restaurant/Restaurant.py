@@ -1,4 +1,4 @@
-from ..Util.excelFunction import *
+from Util.excelFunction import *
 
 class Restaurant:
     sum = 0
