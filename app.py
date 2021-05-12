@@ -18,6 +18,7 @@ from new import *
 from Function import *
 from order import *
 from Util.excelFunction import *
+from Restaurant.Restaurant import *
 #==============================
 
 #========python library========
@@ -113,7 +114,6 @@ def handle_message(event):
             splStr = msg.split(' ')
             if len(splStr) == 3:
                 items = splStr[0] + splStr[2]
-                orderRequest.append(items)
                 sum = sum + int(splStr[1])*int(splStr[2])
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text='收到'))
             else:
