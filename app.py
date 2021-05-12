@@ -54,7 +54,7 @@ sum = 0
 def loadGAS(url):
     keyList = []
     valueList = []
-    kvData = getDataFromGoogleSheet(url)
+    kvData = getDataFromGoogleSheet(url, 0)
     
     for outer in kvData:
         for inner in kvData.get(outer):
@@ -67,7 +67,7 @@ def loadGAS(url):
         reactDict[keyList[i]] = valueList[i]
 
 def loadShop(url):
-    Data = getDataFromGoogleSheet(url)
+    Data = getDataFromGoogleSheet(url, 0)
     for outer in Data:
         for inner in Data.get(outer):
             if inner == 'NAME':
