@@ -2,7 +2,7 @@ from ..Util.excelFunction import *
 
 class Restaurant:
     sum = 0
-    ordered = []
+    ordered = ""
 
     def __init__(self,userId,jdata):
         self.jdata = jdata
@@ -12,7 +12,10 @@ class Restaurant:
         return self.userId
 
     def addOrder(self, order):
-        self.ordered.append(order)
+        if self.ordered == "":
+            self.order = order
+        else:
+            self.ordered = self.order + "," + order
 
     def push(self,shop):
         payload = {
