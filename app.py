@@ -13,9 +13,6 @@ from linebot.models import *
 import json
 
 #======這裡是呼叫的檔案內容=====
-from message import *
-from new import *
-from Function import *
 from order import *
 from Util.excelFunction import *
 from Restaurant.Restaurant import *
