@@ -49,6 +49,7 @@ restaurantName = []
 restaurantAddr = []
 
 orderRequest = []
+pushRequest = []
 sum = 0
 
 # reload google sheet
@@ -98,7 +99,7 @@ def callback():
 # handle message
 @handler.add(MessageEvent, message = TextMessage)
 def handle_message(event):
-    global sum, orderRequest, ordering, orderCalled, wait4input
+    global sum, orderRequest, pushRequest, ordering, orderCalled, wait4input
     message = ''
     msg = event.message.text 
 
@@ -125,6 +126,8 @@ def handle_message(event):
             ordering = False
             wait4input = False
         elif msg in restaurantName :
+            orderRequest.append(Restaurant(event.source.user_id,jdata,restaurantName.index(msg)))
+            pushRequest.append(orderRequest[-1])
             getOrder(line_bot_api, event.reply_token, msg)
             wait4input = True
             return
