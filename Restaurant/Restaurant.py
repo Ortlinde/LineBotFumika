@@ -4,9 +4,10 @@ class Restaurant:
     sum = 0
     ordered = ""
 
-    def __init__(self,userId,jdata):
+    def __init__(self,userId,jdata,shop):
         self.jdata = jdata
         self.userId = userId
+        self.shop = shop
         
     def getId(self):
         return self.userId
@@ -17,22 +18,10 @@ class Restaurant:
         else:
             self.ordered = self.order + "," + order
 
-    def push(self,shop):
+    def push(self):
         payload = {
             'USER': self.userId,
             'PRICE': sum,
             'ITEMS': self.ordered,
-            'SHOP' : shop }
+            'SHOP' : self.shop }
         sendDataToGoogleSheet(self.jdata['Gas']['Get'][2]['shopExcel'], payload)
-
-class EightWay(Restaurant):
-    def push(self):
-        super().push(0)
-
-class YiTing(Restaurant):
-    def push(self):
-        super().push(1)
-
-class GuJing(Restaurant):
-    def push(self):
-        super().push(2)
