@@ -14,21 +14,22 @@ class Restaurant:
     def addOrder(self, order):
         self.ordered.append(order)
 
-    def push(self,shopExcel):
+    def push(self,shop):
         payload = {
             'USER': self.userId,
             'PRICE': sum,
-            'ITEMS': self.ordered }
-        sendDataToGoogleSheet(self.jdata['Gas']['Get'][2][shopExcel], payload)
+            'ITEMS': self.ordered,
+            'SHOP' : shop }
+        sendDataToGoogleSheet(self.jdata['Gas']['Get'][2]['shopExcel'], payload)
 
 class EightWay(Restaurant):
     def push(self):
-        super().push("eightWayExcel")
+        super().push(0)
 
 class YiTing(Restaurant):
     def push(self):
-        super().push("yiTingExcel")
+        super().push(1)
 
 class GuJing(Restaurant):
     def push(self):
-        super().push("guJingExcel")
+        super().push(2)
