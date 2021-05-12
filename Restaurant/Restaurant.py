@@ -1,13 +1,29 @@
+from ..Util.excelFunction import *
+
 class Restaurant:
-    def __init__(self,name,userId):
-        self.name = name
+    sum = 0
+    ordered = []
+
+    def __init__(self,userId,jdata):
+        self.jdata = jdata
         self.userId = userId
         
-    def getName(self):
-        return self.name
+    def getId(self):
+        return self.userId
+
+    def addOrder(self, order):
+        self.ordered.append(order)
+
+    def push(self):
+        pass
 
 class EightWay(Restaurant):
-    pass
+    def push(self):
+        payload = {
+            'USER': self.userId,
+            'PRICE': sum,
+            'ITEMS': self.ordered }
+        sendDataToGoogleSheet(self.jdata['Gas']['Get'][2]['baseExcel'], payload)
 
 class YiTing(Restaurant):
     pass
