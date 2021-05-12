@@ -8,6 +8,10 @@
             },
             {
                 "baseExcel" : "https://script.google.com/macros/s/AKfycbzCoRJzQ8tMP7WY4KSTDYzofYA9DElpyol-VGZgrCTHzuvJVb4QqVjXM7rDxFMBQFBJEg/exec"
+            },{
+                "eightWayExcel" : "",
+                "yiTingExcel" : "",
+                "guJingExcel" : ""
             }]
     }
 }
